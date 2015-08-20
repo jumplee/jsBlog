@@ -10,11 +10,14 @@ module.exports = Controller("Admin/BaseController", function(){
       this.display();
     },
       addAction: function(){
-          //render View/Home/index_index.html file
+
           this.display();
       },
       addSaveAction:function(){
+          this.get('cate_name');
+          D('category').add({
 
+          });
           this.json({
               name:'222'
           });
