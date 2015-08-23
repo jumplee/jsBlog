@@ -6,7 +6,6 @@
 <div class="wrapper">
     <% include inc/top %>
 <% include inc/slideBar %>
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -23,34 +22,16 @@
 
         <!-- Main content -->
         <section class="content">
-
-            <div class="row">
-                <div class="form-group">
-                    <label for="">
-                        名称
-                    </label>
-                    <input class="form-control" type="text"/>
-                </div>
+            <div class="container">
+                    <div id="add_cate_panel"></div>
             </div>
-            <div style="clear:both">
-                </div>
-            <div class="ant-form-item">
-                <div class="col-6">  &nbsp;</div>
-                <div class="col-14">
-                    <button class="btn btn-primary" id="blog_add_btn">添加</button>
-                </div>
-
-            </div>
-            <div id="blog_date"></div>
-
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
 
     <% include inc/footer %>
 </div><!-- ./wrapper -->
 <script src="/resource/summer/summernote.min.js"></script>
+<script type="text/jsx" src="/resource/js_root/admin/category_add.js"></script>
+</body>
 
-  </body>
-  <!-- 直接调用全局变量 -->
-  <script type="text/jsx" src="/resource/js_root/admin/blog_add.js"></script>
 </html>
