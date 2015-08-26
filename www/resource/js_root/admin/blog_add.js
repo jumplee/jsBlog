@@ -4,31 +4,34 @@ function ele(ele){
 var Select = antd.Select;
 var Option = Select.Option;
 var $content=$('#blog_content');
+var pid=1;
+var blogTitle='';
 $content.summernote({
     height: 300
 });
 $('#blog_add_btn').click(function(){
     var self=this;
     var content=$content.code();
-
-    if(content==0){
+    if($(content).text()==''){
         antd.message.info('内容不能为空',10);
         return false;
     }
     var data={
         content:content,
-        category:cate_id
+        category:pid,
+        title:blogTitle
     };
-
-    $.post('addSave',{
+    var btn=$(this)
+    btn.attr('disabled',true);
+    setTimeout(function(){
+       btn.attr('disabled',false)
+    },5000);
+    $.post('save',{
         model:JSON.stringify(data)
     },function(json){
         if(json.success){
             antd.message.success('添加成功');
-            self.state.categoryName='';
-            self.state.pid=0;
-            self.state.categoryDescription='';
-            location.href='index'
+            setTimeout()
         }else{
             antd.message.error(json.error);
         }
@@ -47,10 +50,6 @@ var BlogForm=React.createClass({
     componentDidMount() {
         var self=this;
         $.getJSON('/admin/category/treeList',function(json){
-            json.unshift({
-                id:0,
-                name:'根目录'
-            });
             self.setState({
                 categoryList:json
             });
@@ -61,6 +60,11 @@ var BlogForm=React.createClass({
     },
     onPidChange(value){
         this.state.pid=value;
+        pid=value;
+    },
+    onTitleChange(event){
+        this.state.title=event.target.value;
+        blogTitle=event.target.value;
     },
     render(){
         var cateOptions=[];
@@ -76,13 +80,12 @@ var BlogForm=React.createClass({
 
         });
 
-
         return     <form className="ant-form-horizontal">
 
             <div className="ant-form-item">
                 <label htmlFor="category" className="col-6" required>分类：</label>
                 <div className="col-14">
-                    <Select value="lucy" defaultValue={this.state.pid} style={{width:200}} onChange={this.onPidChange}>
+                    <Select defaultValue="1" style={{width:200}} onChange={this.onPidChange}>
                         {cateOptions}
                     </Select>
                 </div>
@@ -90,7 +93,7 @@ var BlogForm=React.createClass({
             <div className="ant-form-item">
                 <label htmlFor="title" className="col-6" required>标题：</label>
                 <div className="col-14">
-                    <input className="ant-input" type="text"  valueLink={this.linkState('title')} id="title"  placeholder="请输入标题"/>
+                    <input className="ant-input" type="text"  id="title" onChange={this.onTitleChange}  placeholder="请输入标题"/>
                 </div>
             </div>
         </form>

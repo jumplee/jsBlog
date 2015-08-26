@@ -1,6 +1,6 @@
 <% include inc/head %>
-<link rel="stylesheet" href="/resource/summer/summernote.css"/>
 	<title>后台首页</title>
+
     <% include inc/top %>
 <% include inc/slideBar %>
 
@@ -9,8 +9,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                博客
-                <small>添加</small>
+                Page Header
+                <small>Optional description</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -22,19 +22,6 @@
         <section class="content">
 
             <div id="blog_category"></div>
-            <div class="ant-form-item">
-                <label class="col-6" for="blog_content">内容：</label>
-                <div class="col-14"><div id="blog_content"></div></div>
-            </div>
-            <div style="clear:both">
-                </div>
-            <div class="ant-form-item">
-                <div class="col-6">  &nbsp;</div>
-                <div class="col-14">
-                    <button class="btn btn-primary" id="blog_add_btn">添加</button>
-                </div>
-
-            </div>
             <div id="blog_date"></div>
 
         </section><!-- /.content -->
@@ -42,9 +29,28 @@
 
     <% include inc/footer %>
 </div><!-- ./wrapper -->
-<script src="/resource/summer/summernote.min.js"></script>
+
 
   </body>
   <!-- 直接调用全局变量 -->
-  <script type="text/jsx" src="/resource/js_root/admin/blog_add.js"></script>
+  <script type="text/jsx">
+  function ele(ele){
+	return document.getElementById(ele);
+  }
+var Select = antd.Select;
+var Option = Select.Option;
+
+function handleChange(value) {
+  console.log('selected ' + value);
+}
+
+React.render(
+  <Select value="lucy" style={{width:200}} onChange={handleChange}>
+    <Option value="jack">Jack</Option>
+    <Option value="lucy">Lucy</Option>
+    <Option value="disabled" disabled>Disabled</Option>
+    <Option value="yiminghe">yiminghe</Option>
+  </Select>
+, document.getElementById('blog_category'));
+  </script>
 </html>

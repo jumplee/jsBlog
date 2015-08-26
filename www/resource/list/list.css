@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+.x-list{
+	
+
+}
+.x-list-outer{
+	position:relative;
+  overflow: hidden;
+}
+.x-list-inner{
+overflow: auto;
+  min-height: 150px;
+}
+.x-list-zzc{
+  background-color:white;
+  position:absolute;
+  top:0;
+  text-align: center;
+  vertical-align: middle;
+  z-index: 99;
+  opacity:0.8;
+}
+.x-list-zzc-img{
+  position: absolute;
+}
+
+.x-list-empty-text{
+  text-align: center;
+  padding: 15px;
+  font-size: 1.2em;
+  color: #808080;
+}
+
+.x-list-pagebar{
+text-align: center;
+}
+
+/*end ----page  }}}*/  
+

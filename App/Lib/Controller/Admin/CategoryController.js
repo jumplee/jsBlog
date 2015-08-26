@@ -67,7 +67,13 @@ module.exports = Controller("Admin/BaseController", function(){
                     });
                 }
             })
-
+            //D('category').add(cate).then(function(){
+            //    self.json({
+            //        success:true
+            //    });
+            //}).catch(function(error){
+            //    console.log(error);
+            //});
 
         }
 

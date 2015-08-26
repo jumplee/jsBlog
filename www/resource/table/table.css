@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+.x-table{
+  width:100%;
+  border-collapse: collapse;
+}
+
+.x-table-outer{
+  position:relative;
+  overflow: hidden;
+}
+
+.x-table-zzc{
+  background-color:white;
+  position:absolute;
+  top:0;
+  text-align: center;
+  vertical-align: middle;
+  z-index: 99;
+  opacity:0.8;
+}
+.x-table-zzc-img{
+  position: absolute;
+}
+
+.pagination {
+  margin: 15px auto;
+}
+.x-table-pagebar{
+text-align: center;
+}
+
+
