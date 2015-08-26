@@ -3,29 +3,97 @@ function ele(ele){
 }
 var Select = antd.Select;
 var Option = Select.Option;
-
-function handleChange(value) {
-    console.log('selected ' + value);
-}
-$('#blog_content').summernote({
+var $content=$('#blog_content');
+$content.summernote({
     height: 300
 });
 $('#blog_add_btn').click(function(){
-   $.post('')
-});
-React.render(
-    <form className="ant-form-horizontal">
-        <div className="ant-form-item">
-            <label htmlFor="category" className="col-6" required>分类：</label>
-            <div className="col-14">
-                <Select value="lucy" style={{width:200}} onChange={handleChange}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="disabled" disabled>Disabled</Option>
-                    <Option value="yiminghe">yiminghe</Option>
-                </Select>
-            </div>
-        </div>
+    var self=this;
+    var content=$content.code();
 
-    </form>
-    , document.getElementById('blog_category'));
+    if(content==0){
+        antd.message.info('内容不能为空',10);
+        return false;
+    }
+    var data={
+        content:content,
+        category:cate_id
+    };
+
+    $.post('addSave',{
+        model:JSON.stringify(data)
+    },function(json){
+        if(json.success){
+            antd.message.success('添加成功');
+            self.state.categoryName='';
+            self.state.pid=0;
+            self.state.categoryDescription='';
+            location.href='index'
+        }else{
+            antd.message.error(json.error);
+        }
+    });
+});
+var BlogForm=React.createClass({
+    mixins: [React.addons.LinkedStateMixin],
+    getInitialState() {
+        return {
+            title:'',
+            content:'',
+            pid:"0",
+            categoryList:[]
+        }
+    },
+    componentDidMount() {
+        var self=this;
+        $.getJSON('/admin/category/treeList',function(json){
+            json.unshift({
+                id:0,
+                name:'根目录'
+            });
+            self.setState({
+                categoryList:json
+            });
+        });
+    },
+    save(event){
+
+    },
+    onPidChange(value){
+        this.state.pid=value;
+    },
+    render(){
+        var cateOptions=[];
+        this.state.categoryList.forEach(function(cate){
+            var str= <Option key={cate.id}>{cate.name}</Option>;
+                cateOptions.push(str);
+            if(cate.children){
+                cate.children.forEach(function(item){
+                    str = <Option key={item.id}>----{item.name}</Option>;
+                    cateOptions.push(str);
+                });
+            }
+
+        });
+
+
+        return     <form className="ant-form-horizontal">
+
+            <div className="ant-form-item">
+                <label htmlFor="category" className="col-6" required>分类：</label>
+                <div className="col-14">
+                    <Select value="lucy" defaultValue={this.state.pid} style={{width:200}} onChange={this.onPidChange}>
+                        {cateOptions}
+                    </Select>
+                </div>
+            </div>
+            <div className="ant-form-item">
+                <label htmlFor="title" className="col-6" required>标题：</label>
+                <div className="col-14">
+                    <input className="ant-input" type="text"  valueLink={this.linkState('title')} id="title"  placeholder="请输入标题"/>
+                </div>
+            </div>
+        </form>
+    }
+});
+React.render(<BlogForm/>, document.getElementById('blog_category'));

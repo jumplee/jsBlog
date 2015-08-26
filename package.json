@@ -4,6 +4,8 @@
   "version": "0.1.0",
   "author": {},
   "dependencies": {
+    "i": "^0.3.3",
+    "lodash": "^3.10.1",
     "thinkjs": "*"
   },
   "keywords": [],
