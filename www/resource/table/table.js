@@ -638,8 +638,7 @@
  *		render:自定义的显示效果  有两个参数，data表示为vo数据，view是用于展示模板的jQuery对象  render(vo,view)
  *		width:要显示的区域的宽度
  *		height:要显示的区域的高度
-
-
+ *		emptyText:'暂无数据' 当不存在数据的时候
  *		onrender:render完成后执行事件
  *		pagePosition:放置分页的位置 默认为"bottom" 可选项："top" ,"bottom"
  *
@@ -694,7 +693,6 @@
             ' </div>',
             onItemClick:function(list,data,node,index,event){
 
-                console.log(event)
             },
             render:function(vo,view){
                 var html='';
@@ -801,7 +799,7 @@
                 if($.isEmptyObject(vo)){
 
                 }else{
-                    init_render(vo,Math.round(total/self.options.rowLimit)+1);
+                    init_render(vo,Math.ceil(total/self.options.rowLimit));
                 }
             }
             function show_list(e,op,np){
@@ -813,7 +811,9 @@
                     }else{
                         var vo=data[self.options.dataName];
                     }
-                    self.render(vo);
+                    init_render(vo,Math.ceil(data[self.options.totalName]/self.options.rowLimit));
+
+                    //self.render(vo);
 
                 });
             }
@@ -832,9 +832,9 @@
                     self.pageBar.bootstrapPaginator(options);
                 }else{
                     //清空列表，当列表从有数据变为无数据时，应当把原来的那排导航清除
-                    self.pageBar.empty();
-
+                    self.pageBar.empty(self.options.emptyText);
                 }
+                self.render(vo)
             }
 
 
@@ -861,6 +861,7 @@
             // this.options.param=opts.param;
             // this.options.type=opts.type;
             //this.init();
+            this.page(1);
         }
         ,getCurrentPage:function(){
             return this.currentPage;
@@ -870,11 +871,14 @@
          * @param page_num
          */
         ,page:function(page_num){
+            var before_num=this.currentPage;
             if(page_num>0&&page_num<this.total+1){
                 this.currentPage=page_num;
             }
             var pager=  this.pageBar.data('bootstrapPaginator');
             pager.show(page_num);
+            //避免页数相同的时候不请求后台
+            this.pageBar.trigger('page-changed',[before_num,page_num]);
         },
         destory : function(){
 

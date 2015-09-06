@@ -2,49 +2,7 @@
 <base href="/"/>
 <link rel="stylesheet" href="/resource/list/list.css"/>
 <script src="/resource/list/list.js"></script>
-</head>
-
-<body>
-<div class="container">
-    <header id="site-header">
-        <div class="row">
-            <div class="col-md-4 col-sm-5 col-xs-8">
-                <div class="logo">
-                    <h1><a href="index.html"><b>我</b> の BLOG</a></h1>
-                </div>
-            </div><!-- col-md-4 -->
-            <div class="col-md-8 col-sm-7 col-xs-4">
-                <nav class="main-nav" role="navigation">
-                    <div class="navbar-header">
-                        <button type="button" id="trigger-overlay" class="navbar-toggle">
-                            <span class="ion-navicon"></span>
-                        </button>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="cl-effect-11"><a href="index.html" data-hover="Home">Home</a></li>
-                            <li class="cl-effect-11"><a href="full-width.html" data-hover="Blog">Blog</a></li>
-                            <li class="cl-effect-11"><a href="about.html" data-hover="About">About</a></li>
-                            <li class="cl-effect-11"><a href="contact.html" data-hover="Contact">Contact</a></li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </nav>
-                <div id="header-search-box">
-                    <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
-                    <div id="search-form" class="search-form">
-                        <form role="search" method="get" id="searchform" action="#">
-                            <input type="search" placeholder="Search" required>
-                            <button type="submit"><span class="ion-ios-search-strong"></span></button>
-                        </form>
-                    </div>
-                </div>
-            </div><!-- col-md-8 -->
-        </div>
-    </header>
-</div>
-
-
+<% include inc/nav %>
 <div class="content-body">
     <div class="container">
         <div class="row">
@@ -52,47 +10,51 @@
                 <div id="blog_list"></div>
             </main>
             <aside class="col-md-4">
-                <div class="widget widget-recent-posts">
-                    <h3 class="widget-title">Recent Posts</h3>
-                    <ul>
-                        <li>
-                            <a href="#">Adaptive Vs. Responsive Layouts And Optimal Text Readability</a>
-                        </li>
-                        <li>
-                            <a href="#">Web Design is 95% Typography</a>
-                        </li>
-                        <li>
-                            <a href="#">Paper by FiftyThree</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="widget widget-archives">
-                    <h3 class="widget-title">Archives</h3>
-                    <ul>
-                        <li>
-                            <a href="#">November 2014</a>
-                        </li>
-                        <li>
-                            <a href="#">September 2014</a>
-                        </li>
-                        <li>
-                            <a href="#">January 2013</a>
-                        </li>
-                    </ul>
-                </div>
+                <!--<div class="widget widget-recent-posts">-->
+                    <!--<h3 class="widget-title">Recent Posts</h3>-->
+                    <!--<ul>-->
+                        <!--<li>-->
+                            <!--<a href="#">Adaptive Vs. Responsive Layouts And Optimal Text Readability</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="#">Web Design is 95% Typography</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="#">Paper by FiftyThree</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="widget widget-archives">-->
+                    <!--<h3 class="widget-title">Archives</h3>-->
+                    <!--<ul>-->
+                        <!--<li>-->
+                            <!--<a href="#">November 2014</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="#">September 2014</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="#">January 2013</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
 
-                <div class="widget widget-category">
+                <div class="widget widget-category" id="category_list">
                     <h3 class="widget-title">Category</h3>
                     <ul>
-                        <li>
-                            <a href="#">Web Design</a>
-                        </li>
-                        <li>
-                            <a href="#">Web Development</a>
-                        </li>
-                        <li>
-                            <a href="#">SEO</a>
-                        </li>
+                        <%cates.forEach(function(item){%>
+                            <li>
+                                <a href="#<%=item.name%>" data-id="<%=item.id%>"><%=item.name%></a>
+
+                            </li>
+                                <% if(item.children){
+                                        item.children.forEach(function(item){ %>
+                            <li>
+                                <a href="#<%=item.name%>" data-id="<%=item.id%>">--<%=item.name%></a>
+                            </li>
+                                <%  })
+                                }%>
+                        <%})%>
                     </ul>
                 </div>
             </aside>
@@ -104,12 +66,12 @@
     <article class="post post-1">
         <header class="entry-header">
             <h1 class="entry-title">
-                <a href="single.html">{{title}}</a>
+                <a href="/blog/details/id/{{id}}">{{title}}</a>
             </h1>
             <div class="entry-meta">
                 <span class="post-category"><a href="#">{{category_name}}</a></span>
 
-                <span class="post-date"><a href="#"><time class="entry-date" datetime="2012-11-09T23:15:57+00:00">{{add_time}}</time></a></span>
+                <span class="post-date"><a href="#"><time class="entry-date" datetime="{{add_time_name}}">{{add_time_name}}</time></a></span>
 
                 <span class="post-author"><a href="#">lee</a></span>
 
@@ -121,7 +83,7 @@
                 {{{content}}}
             </p>
             <div class="read-more cl-effect-14">
-                <a href="#" class="more-link">更多 <span class="meta-nav">→</span></a>
+                <a href="/blog/details/id/{{id}}" class="more-link">更多 <span class="meta-nav">→</span></a>
             </div>
         </div>
     </article>
@@ -133,8 +95,20 @@
         element:'#blog_list',
         url:'/blog/list',
         tpl:tpl_list,
-        dataName:'data'
-    })
+        rowLimit:6,
+        totalName:'count',
+        dataName:'data',
+        onrender:function(){
+            $('body').scrollTop(0);
+        }
+    });
+    $('#category_list a').click(function(){
+       list.setOpts({
+           param:{
+                category:$(this).attr('data-id')
+           }
+       });
+    });
 </script>
 </body>
 </html>

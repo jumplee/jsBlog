@@ -19,20 +19,28 @@
 
         <!-- Main content -->
         <section class="content">
-            <% for(var i=0;i<cates.length;i++){%>
-                <% var cate=cates[i]%>
-                <div>
-                   <a href="#"> <%= cate.name%></a>
-                    <% if(cate.children){%>
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">分类</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <% for(var i=0;i<cates.length;i++){%>
+                    <% var cate=cates[i]%>
+                    <div>
+                        <a href="#"> <%= cate.name%></a>
+                        <% if(cate.children){%>
                         <ul>
                             <% for(var j=0;j<cate.children.length;j++){ %>
-                                <li>--<%=cate.children[j].name%></li>
+                            <li>--<%=cate.children[j].name%></li>
                             <%}%>
                         </ul>
-                    <%}%>
-                </div>
+                        <%}%>
+                    </div>
 
-            <%}%>
+                    <%}%>
+                </div><!-- /.box-body -->
+            </div>
+
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
 

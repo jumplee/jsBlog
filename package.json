@@ -6,7 +6,9 @@
   "dependencies": {
     "i": "^0.3.3",
     "lodash": "^3.10.1",
-    "thinkjs": "*"
+    "moment": "^2.10.6",
+    "thinkjs": "*",
+    "trim-html": "^0.1.7"
   },
   "keywords": [],
   "repository": {

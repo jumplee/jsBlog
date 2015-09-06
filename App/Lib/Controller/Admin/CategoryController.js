@@ -2,19 +2,13 @@
  * controller
  * @return
  */
-var _=require('lodash');
+
 module.exports = Controller("Admin/BaseController", function(){
     "use strict";
     return {
         indexAction: function(){
             var self=this;
-            D('category').select().then(function(data){
-                var list=_.where(data,{
-                    pid:0
-                });
-                _.forEach(list,function(item){
-                    item.children=_.where(data,{pid:item.id})
-                });
+            D('category').getTreeList().then(function(list){
                 self.assign('cates',list);
                 self.display();
             })
@@ -22,15 +16,9 @@ module.exports = Controller("Admin/BaseController", function(){
         },
         treeListAction:function(){
             var self=this;
-            D('category').select().then(function(data){
-                var list=_.where(data,{
-                    pid:0
-                });
-                _.forEach(list,function(item){
-                    item.children=_.where(data,{pid:item.id})
-                });
-                self.json(list)
-            })
+            D('category').getTreeList().then(function(data){
+                self.json(data);
+            });
         },
         listAction:function(){
             var pid=this.get('pid');

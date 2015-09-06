@@ -12,10 +12,7 @@ module.exports = Controller(function(){
       //其他的通用逻辑
     },
     __before:function(){
-      this.getGlobe()
-    },
-    getGlobe:function(){
-      this.assign('')
+      this.assign('isAdmin',false);
     }
   }
 })
