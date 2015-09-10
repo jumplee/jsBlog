@@ -9,8 +9,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Page Header
-                <small>Optional description</small>
+               后台首页
+
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -21,8 +21,7 @@
         <!-- Main content -->
         <section class="content">
 
-            <div id="blog_category"></div>
-            <div id="blog_date"></div>
+
 
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
@@ -33,24 +32,5 @@
 
   </body>
   <!-- 直接调用全局变量 -->
-  <script type="text/jsx">
-  function ele(ele){
-	return document.getElementById(ele);
-  }
-var Select = antd.Select;
-var Option = Select.Option;
 
-function handleChange(value) {
-  console.log('selected ' + value);
-}
-
-React.render(
-  <Select value="lucy" style={{width:200}} onChange={handleChange}>
-    <Option value="jack">Jack</Option>
-    <Option value="lucy">Lucy</Option>
-    <Option value="disabled" disabled>Disabled</Option>
-    <Option value="yiminghe">yiminghe</Option>
-  </Select>
-, document.getElementById('blog_category'));
-  </script>
 </html>
